@@ -14,7 +14,6 @@ $messagesubject = "PKI Health Check - $date"
 		$smtp = New-Object Net.Mail.SmtpClient($smtpServer)
 		$smtp.Send($message)
 }
-
 $exceptionVm="vm1","vm2"
 $vm=Get-ClusterResource | where { $_.ResourceType -eq "Virtual Machine" -and $_.State -like "Offline" -and $_.OwnerGroup -notin $exceptionVm } | select OwnerGroup,State,OwnerNode
 if ( $vm -ne $null)
