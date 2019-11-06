@@ -1,0 +1,10 @@
+$SQLServer = "serversql" 
+$SQLDBName = "dbname"
+$SqlQuery2= "select count(*) as count from table"
+$SqlConnection = New-Object System.Data.SqlClient.SqlConnection
+$SqlConnection.ConnectionString = "Server = $SQLServer; Database = $SQLDBName; Integrated Security=False;User Id=sqluser;Password=P@ssw"
+$SqlCmd = New-Object System.Data.SqlClient.SqlCommand
+$SqlCmd.CommandText = $SqlQuery2
+$SqlCmd.Connection = $SqlConnection
+$SqlConnection.open()
+$Result = $SqlCmd.ExecuteScalar()
