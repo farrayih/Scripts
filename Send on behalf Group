@@ -1,0 +1,5 @@
+$FormatEnumerationLimit =-1
+[System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic') | Out-Null
+$Group = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Group name","Send on behalf","")
+$Users = [Microsoft.VisualBasic.Interaction]::InputBox("Enter user/s name","Send on behalf","user1,user2")
+Set-DistributionGroup -Identity $Group -GrantSendOnBehalfTo $Users
