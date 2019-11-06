@@ -14,10 +14,10 @@ $messagesubject = "Vms Health Check - $date"
 		$smtp.Send($message)
 }
 $exceptionVm="vm1","vm2"
-$vm=Get-ClusterResource | where { $_.ResourceType -eq "Virtual Machine" -and $_.OwnerGroup -notin $exceptionVm } | select OwnerGroup,State,OwnerNode
+$vms=Get-ClusterResource | where { $_.ResourceType -eq "Virtual Machine" -and $_.OwnerGroup -notin $exceptionVm } | select OwnerGroup,State,OwnerNode
 if ( $vm -ne $null)
 {
-sendemail($VM)
+sendemail($VMs)
 Write-Host "VM Problem" -ForegroundColor RED
 }
 else
