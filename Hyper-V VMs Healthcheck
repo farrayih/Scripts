@@ -3,19 +3,18 @@ function sendemail($vm)
 $smtpServer = "smtp.server.com"
 $smtpTo = "farrayih@gmail.com"
 $smtpFrom = "HypervHealth@test.jo"
-$messagesubject = "PKI Health Check - $date"
+$messagesubject = "Vms Health Check - $date"
  $message = New-Object System.Net.Mail.MailMessage $smtpFrom,$smtpTo
 		$message.Subject = $messageSubject
 		$message.IsBodyHTML = $true
 		$Allvms= $VM| ConvertTo-Html
 		$Allvms=$Allvms -replace ("<table>","<Table border=2>")	
-		$Allvms=$Allvms -replace ("<td>","<td bgcolor='#FF0000'>")	
 		$message.Body =$Allvms
 		$smtp = New-Object Net.Mail.SmtpClient($smtpServer)
 		$smtp.Send($message)
 }
 $exceptionVm="vm1","vm2"
-$vm=Get-ClusterResource | where { $_.ResourceType -eq "Virtual Machine" -and $_.State -like "Offline" -and $_.OwnerGroup -notin $exceptionVm } | select OwnerGroup,State,OwnerNode
+$vm=Get-ClusterResource | where { $_.ResourceType -eq "Virtual Machine" -and $_.OwnerGroup -notin $exceptionVm } | select OwnerGroup,State,OwnerNode
 if ( $vm -ne $null)
 {
 sendemail($VM)
